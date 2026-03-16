@@ -147,8 +147,8 @@ def sync_resize_pad_two_folders(
 # 示例用法
 if __name__ == "__main__":
     # ---------------------- 请根据你的路径修改 ----------------------
-    img_dir = r"D:\datastore\TESTS\JPEGImages"  # 第一个文件夹（图片文件夹）
-    paired_dir = r"D:\datastore\TESTS\SegmentationClassPNG"  # 第二个文件夹（同名不同后缀的文件，如标签）
+    img_dir = r"D:\datastore\TESTS\JPEGImages"  # 原图
+    paired_dir = r"D:\datastore\TESTS\SegmentationClassPNG"  # 掩码
     output_img_dir = r"D:\temp\ceshijiyuantu"   # 图片处理后的输出路径
     output_paired_dir = r"D:\temp\ceshijiyuantu"  # 对应文件处理后的输出路径
     target_size = (512, 512)  # 目标尺寸（与之前一致）
