@@ -45,18 +45,18 @@ def expand_mask_based_on_similarity(original_img, mask, kernel_size=5, threshold
     return expanded_mask.astype(np.uint8) * 255
 
 
-def process_masks_to_final_output(pred1, pred2, img_folder, output_folder, expand_kernel=5,
+def process_masks_to_final_output(pred_folder1, pred_folder2, img_folder, output_folder, expand_kernel=5,
                                   expand_threshold=30):
     os.makedirs(output_folder, exist_ok=True)
 
     supported_formats = ['png', 'jpg', 'jpeg']
     pred_files1 = []
     for fmt in supported_formats:
-        pred_files1.extend(glob(os.path.join(pred1, f"*.{fmt}")))
-        pred_files1.extend(glob(os.path.join(pred1, f"*.{fmt.upper()}")))
+        pred_files1.extend(glob(os.path.join(pred_folder1, f"*.{fmt}")))
+        pred_files1.extend(glob(os.path.join(pred_folder1, f"*.{fmt.upper()}")))
 
     pred_files1 = list(set(pred_files1))
-    print(f"预测文件夹1路径: {pred1}\n找到 {len(pred_files1)} 个掩码文件，开始处理...\n")
+    print(f"预测文件夹1路径: {pred_folder1}\n找到 {len(pred_files1)} 个掩码文件，开始处理...\n")
 
     if not pred_files1:
         print("错误: 预测文件夹1中未找到文件")
@@ -67,7 +67,7 @@ def process_masks_to_final_output(pred1, pred2, img_folder, output_folder, expan
         file_name = os.path.basename(pred_path1)
         file_base, file_ext = os.path.splitext(file_name)
 
-        pred_path2 = os.path.join(pred2, f"{file_base}{file_ext}")
+        pred_path2 = os.path.join(pred_folder2, f"{file_base}{file_ext}")
         img_path = find_image_with_same_name(img_folder, file_base)
 
         if not os.path.exists(pred_path2) or img_path is None:
@@ -107,10 +107,10 @@ def process_masks_to_final_output(pred1, pred2, img_folder, output_folder, expan
 
 
 if __name__ == "__main__":
-    pre1 = r"D:\PythonProject11\Pytorch-UNet\predict_output"#原图模型训练得到的预测结果文件夹
-    pre2 = r"D:\PythonProject11\Pytorch-UNet\predict_output-hui"#灰度模型得到的文件夹
-    img = r"D:\PythonProject11\Pytorch-UNet\data\imgs"#原图
-    output = r"D:\temp\kuozhan"#扩展交集掩码
+    pre1 = r"D:\datastore\TESTS\hui-predict"#原图模型训练得到的预测结果文件夹
+    pre2 = r"D:\datastore\TESTS\yuan-predict"#灰度模型得到的文件夹
+    img = r"D:\datastore\TESTS\JPEGImages-512"#原图
+    output = r"D:\temp\kuozhan-1"#扩展交集掩码
 
     # 超参数设置
     k = 5  # 扩展核大小 越大范围越广
